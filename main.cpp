@@ -144,7 +144,7 @@ void drawShip(){
 
 void moveShip(){
   float pitch, roll, yaw;
-  M5.Mpu6886.getAhrsData(&pitch, &roll, &yaw);
+  M5.IMU.getAhrsData(&pitch, &roll, &yaw);
   float dx = 12 * sin(roll/180);
   if(sShip.realx + dx < 0){
       sShip.realx = 0;
@@ -161,7 +161,7 @@ void moveShip(){
 void launchShoot(){
   if(sShip.shootx >= 0){return;}
   float accX,accY,accZ;
-  M5.Mpu6886.getAccelData(&accX,&accY,&accZ);
+  M5.IMU.getAccelData(&accX,&accY,&accZ);
   //M5.Lcd.setCursor(0, 45);
   //M5.Lcd.printf("%.2f   %.2f   %.2f      ",accX * 1000,accY * 1000, accZ * 1000);
   if(accX*1000 >= 1200 || digitalRead(M5_BUTTON_HOME) == LOW){
@@ -393,7 +393,7 @@ void setup() {
   // put your setup code here, to run once:
   M5.begin();
   M5.Axp.ScreenBreath(8);
-  M5.Mpu6886.Init();
+  M5.IMU.Init();
   M5.Lcd.setRotation(1);
   M5.Lcd.fillScreen(BLACK);
   
